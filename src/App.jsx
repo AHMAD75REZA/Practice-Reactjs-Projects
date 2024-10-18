@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Profile from './profile'
+import axios from 'axios'
 
 import './App.css'
 import MyApp from './MyApp'
@@ -9,7 +10,36 @@ import Props from './Card'
 import Card from './Card'
 import Example from './Example'
 
+import About from './Pages/About'
+import Home from './Pages/Home'
+import Contact from './Pages/Contact'
+import Product from './Pages/Product'
+
+
 function App() {
+
+
+  const [data, setData] = useState([])
+
+  const getData = async () => {
+   const response = await axios.get('https://picsum.photos/v2/list')
+    // console.log(response);
+
+    // const data = response.data
+    // console.log(data);
+
+    setData(response.data)
+
+    // console.log(data);
+    // console.log(data[0].download_url);
+
+
+  }
+  // useEffect(() =>{      //fetching data without click button getting d
+  //   getData()
+  // },[])
+
+
   const users = [
     {
       "name": "John Doe",
@@ -52,14 +82,9 @@ function App() {
       "salary": 85000
     }
   ]
-
-  // users.forEach(function (element) {
-  //   console.log(element.name);
-
-  // })
-
   return (
     <>
+
       <Profile />
       <MyApp />
       <FormHandling />
@@ -78,8 +103,19 @@ function App() {
         <Example name="Ahmad" />
       </div>
 
-      
-
+      <div className='p-10'>
+         {/* <button onClick={getData} className='bg-teal-700 text-white font-semibold rounded border-2 active:scale-90'>Get Data</button>   */}
+        <div className='p-5 mt-5 bg-gray-950'>
+          {
+            data.map(function (list, i) {
+              return <div key={i} className='bg-gray-50 text-black flex itemx-center justify-between w-full px-7 py-6 rounded mb-3'>
+                 <img className='h-80' src={list.download_url} alt="" srcset="" />
+                <h1> {list.author} </h1> 
+              </div>
+            })
+          }
+        </div>
+      </div>
     </>
   )
 }
