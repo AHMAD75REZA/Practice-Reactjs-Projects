@@ -1,34 +1,23 @@
-import { useEffect, useState } from 'react'
-
-import './App.css'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import About from './Pages/About'
-import Home from './Pages/Home'
-import Contact from './Pages/Contact'
-import Product from './Pages/Product'
-
-import Header from './Header'
-
+import React, { useContext } from 'react'
+import Header from './Components/Header'
+import Footer from './Components/Footer'
+import Section from './Components/section'
+import { DataContext } from './Context/UserContext'
 
 function App() {
 
+  const data = useContext(DataContext)
+    console.log(data);
+    
+    
   return (
     <div>
+      <h1> This App.js Context  API: {data.city} </h1>
       <Header />
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/product" element={<Product />} />
-      </Routes>
+      <Section />
+      <Footer />
     </div>
-
-
-
-
   )
-
-
 }
 
 export default App
